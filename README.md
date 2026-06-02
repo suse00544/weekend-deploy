@@ -186,6 +186,7 @@ Options:
   -h, --help       Show help
   -v, --version    Show version
   -o, --open       Open deployed URL in browser after deploy
+  -d, --dry-run    Show what would happen without actually deploying
 
 Arguments:
   directory        Project directory (defaults to current directory)
@@ -203,6 +204,7 @@ You need at least one deployment platform CLI installed and authenticated:
 | Vercel | `npm i -g vercel` | `vercel login` |
 | Netlify | `npm i -g netlify-cli` | `netlify login` |
 | Fly.io | `curl -L https://fly.io/install.sh \| sh` | `fly auth login` |
+| GitHub Pages | `brew install gh` | `gh auth login` |
 
 **weekend-deploy** will automatically use whichever CLI is available. If your preferred platform isn't installed, it gracefully falls back to the next best option.
 
@@ -233,6 +235,9 @@ src/
     vercel.js         # Vercel deployment
     netlify.js        # Netlify deployment
     fly.js            # Fly.io deployment
+    github-pages.js   # GitHub Pages deployment
+examples/
+  deploy.yaml         # Example configuration file
 ```
 
 ### Adding a new platform
@@ -246,9 +251,10 @@ src/
 
 ## Roadmap
 
+- [x] **GitHub Pages** - For documentation and static sites
+- [x] **Dry-run mode** - Preview deployment plan without shipping
 - [ ] **Railway** - Container deployments with zero config
 - [ ] **Deno Deploy** - For Deno/Fresh projects
-- [ ] **GitHub Pages** - For documentation and static sites
 - [ ] **Render** - Backend alternative to Fly.io
 - [ ] **Interactive mode** - Pick platform manually with arrow keys
 - [ ] **Deploy previews** - Branch-based preview URLs

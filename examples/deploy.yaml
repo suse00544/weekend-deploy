@@ -1,0 +1,24 @@
+# Example deploy.yaml for weekend-deploy
+# Place this file in your project root to customize deployment behavior.
+# All fields are optional — without this file, everything is auto-detected.
+
+# Force a specific platform (overrides auto-detection)
+# Options: cloudflare, vercel, netlify, fly, github-pages
+# platform: vercel
+
+# Custom project name (used in the deployed URL slug)
+name: my-cool-app
+
+# Custom build command (overrides detected build script from package.json)
+# build: npm run build:prod
+
+# Build output directory (overrides framework defaults like dist/ or .next/)
+# output: dist
+
+# Deployment region (only used by Fly.io)
+# region: lax
+
+# Environment variables passed to the build step
+env:
+  NODE_ENV: production
+  # API_URL: https://api.example.com

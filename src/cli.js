@@ -26,6 +26,8 @@ async function main() {
     process.exit(0);
   }
 
+  const dryRun = args.includes('--dry-run') || args.includes('-d');
+
   // Banner
   console.log('');
   console.log(chalk.bold.cyan('  weekend-deploy'));
@@ -82,6 +84,20 @@ async function main() {
   }
 
   console.log(chalk.dim(`  Platform: ${platform.name}`));
+
+  // Dry run: show what would happen, then exit
+  if (dryRun) {
+    console.log('');
+    console.log(chalk.yellow('  --- DRY RUN ---'));
+    console.log(`  Project:    ${projectName}`);
+    console.log(`  Type:       ${project.framework} (${project.category})`);
+    console.log(`  Platform:   ${platform.name}`);
+    console.log(`  Build:      ${buildCommand || 'none'}`);
+    console.log(`  Output dir: ${config.outputDir || project.outputDir || '.'}`);
+    console.log(chalk.yellow('  No deployment performed.'));
+    console.log('');
+    process.exit(0);
+  }
 
   // Step 3: Build (if needed)
   const buildCommand = config.buildCommand || project.buildCommand;
@@ -156,6 +172,7 @@ ${chalk.bold('OPTIONS')}
   -h, --help       Show this help message
   -v, --version    Show version
   -o, --open       Open deployed URL in browser
+  -d, --dry-run    Show what would happen without actually deploying
 
 ${chalk.bold('CONFIGURATION')}
   Create a deploy.yaml in your project root:
@@ -167,15 +184,17 @@ ${chalk.bold('CONFIGURATION')}
     region: iad          # Deployment region (Fly.io)
 
 ${chalk.bold('SUPPORTED PLATFORMS')}
-  cloudflare   Cloudflare Pages (static sites, SPAs)
-  vercel       Vercel (Next.js, frontend frameworks)
-  netlify      Netlify (static sites, SPAs)
-  fly          Fly.io (backend: Node.js, Python)
+  cloudflare      Cloudflare Pages (static sites, SPAs)
+  vercel          Vercel (Next.js, frontend frameworks)
+  netlify         Netlify (static sites, SPAs)
+  fly             Fly.io (backend: Node.js, Python)
+  github-pages    GitHub Pages (static sites, docs)
 
 ${chalk.bold('EXAMPLES')}
   npx weekend-deploy              # Deploy current directory
   npx weekend-deploy ./my-app     # Deploy specific directory
   npx weekend-deploy --open       # Deploy and open in browser
+  npx weekend-deploy --dry-run    # Preview without deploying
 `);
 }
 

@@ -1,0 +1,37 @@
+{
+  "name": "weekend-deploy",
+  "version": "0.1.0",
+  "description": "Deploy your weekend project in 30 seconds. Auto-detects project type, picks the best free platform, and ships it.",
+  "type": "module",
+  "bin": {
+    "weekend-deploy": "./src/cli.js"
+  },
+  "main": "./src/cli.js",
+  "scripts": {
+    "start": "node src/cli.js",
+    "lint": "echo 'no linter configured'"
+  },
+  "keywords": [
+    "deploy",
+    "cli",
+    "cloudflare",
+    "vercel",
+    "netlify",
+    "fly",
+    "hosting",
+    "devtools",
+    "weekend-project"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "execa": "^8.0.1",
+    "inquirer": "^9.2.12",
+    "ora": "^7.0.1",
+    "yaml": "^2.3.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

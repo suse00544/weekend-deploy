@@ -97,6 +97,17 @@ function detectFromPackageJson(pkg, projectDir) {
     };
   }
 
+  // Astro
+  if (deps['astro']) {
+    return {
+      type: 'astro',
+      framework: 'Astro',
+      category: 'frontend',
+      buildCommand: scripts.build || 'astro build',
+      outputDir: 'dist',
+    };
+  }
+
   // SvelteKit
   if (deps['@sveltejs/kit']) {
     return {

@@ -28,6 +28,10 @@ async function main() {
 
   const dryRun = args.includes('--dry-run') || args.includes('-d');
 
+  // Parse --platform flag
+  const platformIdx = args.indexOf('--platform');
+  const forcedPlatformArg = platformIdx !== -1 ? args[platformIdx + 1] : null;
+
   // Banner
   console.log('');
   console.log(chalk.bold.cyan('  weekend-deploy'));
@@ -52,17 +56,18 @@ async function main() {
   let platformKey;
   let platform;
 
-  if (config.platform) {
-    // User forced a platform via deploy.yaml
-    platformKey = config.platform;
+  const forcedPlatform = forcedPlatformArg || config.platform;
+  if (forcedPlatform) {
+    // User forced a platform via --platform flag or deploy.yaml
+    platformKey = forcedPlatform;
     platform = platforms[platformKey];
     if (!platform) {
-      fatal(`Unknown platform "${config.platform}" in deploy.yaml. Available: cloudflare, vercel, netlify, fly`);
+      fatal(`Unknown platform "${forcedPlatform}". Available: cloudflare, vercel, netlify, fly, github-pages`);
     }
     if (!(await platform.isAvailable())) {
       fatal(
-        `Platform "${config.platform}" selected in deploy.yaml, but CLI not found.\n` +
-        `  Install it: ${platform.installHint}`
+        `Platform "${forcedPlatform}" CLI not found.\n` +
+        `  Install it: ${platform.installHint || 'Check platform docs'}`
       );
     }
   } else {
@@ -173,6 +178,7 @@ ${chalk.bold('OPTIONS')}
   -v, --version    Show version
   -o, --open       Open deployed URL in browser
   -d, --dry-run    Show what would happen without actually deploying
+  --platform NAME  Force a specific platform (cloudflare, vercel, netlify, fly, github-pages)
 
 ${chalk.bold('CONFIGURATION')}
   Create a deploy.yaml in your project root:

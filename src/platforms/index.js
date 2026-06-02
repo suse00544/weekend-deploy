@@ -27,6 +27,7 @@ export function selectPlatforms(project) {
     case 'nextjs':
     case 'nuxt':
     case 'svelte':
+    case 'astro':
       // Framework-aware hosts first
       return ['vercel', 'netlify', 'cloudflare'];
 

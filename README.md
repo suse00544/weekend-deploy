@@ -58,6 +58,7 @@ That's it. Run it in your project directory and get a live URL.
 | Next.js | `next` in dependencies | Vercel |
 | Nuxt | `nuxt` in dependencies | Vercel |
 | SvelteKit | `@sveltejs/kit` in dependencies | Vercel |
+| Astro | `astro` in dependencies | Vercel |
 | Create React App | `react-scripts` in dependencies | Cloudflare Pages |
 | Express / Fastify / Koa | Server framework in dependencies | Fly.io |
 | FastAPI | `fastapi` in requirements.txt or imports | Fly.io |
@@ -169,6 +170,12 @@ npx weekend-deploy
 npx weekend-deploy ./apps/frontend
 ```
 
+### Force a specific platform
+
+```bash
+npx weekend-deploy --platform netlify
+```
+
 ### Deploy and open in browser
 
 ```bash
@@ -183,13 +190,14 @@ npx weekend-deploy --open
 weekend-deploy [directory] [options]
 
 Options:
-  -h, --help       Show help
-  -v, --version    Show version
-  -o, --open       Open deployed URL in browser after deploy
-  -d, --dry-run    Show what would happen without actually deploying
+  -h, --help          Show help
+  -v, --version       Show version
+  -o, --open          Open deployed URL in browser after deploy
+  -d, --dry-run       Show what would happen without actually deploying
+  --platform NAME     Force a specific platform (skip auto-detection)
 
 Arguments:
-  directory        Project directory (defaults to current directory)
+  directory           Project directory (defaults to current directory)
 ```
 
 ---

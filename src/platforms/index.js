@@ -2,6 +2,7 @@ import { cloudflare } from './cloudflare.js';
 import { vercel } from './vercel.js';
 import { netlify } from './netlify.js';
 import { fly } from './fly.js';
+import * as githubPages from './github-pages.js';
 
 /**
  * Platform registry.
@@ -11,6 +12,7 @@ export const platforms = {
   vercel,
   netlify,
   fly,
+  'github-pages': githubPages,
 };
 
 /**
@@ -35,8 +37,8 @@ export function selectPlatforms(project) {
       return ['cloudflare', 'vercel', 'netlify'];
 
     case 'static':
-      // Pure static — Cloudflare Pages or Netlify
-      return ['cloudflare', 'netlify', 'vercel'];
+      // Pure static — Cloudflare Pages, GitHub Pages, or Netlify
+      return ['cloudflare', 'github-pages', 'netlify', 'vercel'];
 
     case 'express':
     case 'node':
